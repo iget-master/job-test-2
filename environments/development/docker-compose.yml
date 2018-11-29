@@ -1,0 +1,11 @@
+version: '2'
+services:
+  www:
+    image: iget/default-www
+    restart: always
+    volumes:
+      - ./conf/nginx/sites-enabled:/etc/nginx/sites-enabled
+      - ./conf/php/05-php.ini:/etc/php/7.2/fpm/conf.d/05-php.ini
+      - ../../src:/var/www/
+    ports:
+      - "8888:80"

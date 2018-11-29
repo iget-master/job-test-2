@@ -1,0 +1,5 @@
+.idea/workspace.xml
+environments/production/.env
+environments/staging/.env
+data/
+**/db\.sql
