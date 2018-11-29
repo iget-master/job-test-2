@@ -87,7 +87,7 @@ function command_up {
     docker-compose up -d ${@}
     docker-compose exec www useradd -ms /bin/bash -u $(id -u) $(whoami)
     docker-compose exec www apt update
-    docker-compose exec www apt install php7.2-sqlite
+    docker-compose exec www apt install -y php7.2-sqlite
 }
 
 # Command: down
