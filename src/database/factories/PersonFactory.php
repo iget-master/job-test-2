@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
+use App\User;
 use App\Person;
 use App\Contact;
 
@@ -15,7 +16,7 @@ use App\Contact;
 |
 */
 
-$factory->define(Person::class, function (Faker $faker) {
+$factory->define(Person::class, function (Faker $faker, $attributes) {
     $type = $attributes['type'] ?? $faker->randomElement(Person::AVAILABLE_TYPES);
 
     if ($type == Person::TYPE_PERSON) {
@@ -33,13 +34,13 @@ $factory->define(Person::class, function (Faker $faker) {
     return array_merge($data, [
         'type' => $type,
         'name' => $faker->name,
-        'bank_data' => $faker->rgbColorAsArray,
+        'bank_data' => $faker->sentence,
         'creator_user_id' => $attributes['creator_user_id'] ?? factory(User::class)->create()->id,
     ]);
 });
 
 $factory->define(Contact::class, function (Faker $faker, $attributes) {
-    $person_id = !array_key_exists('person_id', $attributes) ? factory(Contact::class)->create()->id : null;
+    $person_id = !array_key_exists('person_id', $attributes) ? factory(Person::class)->create()->id : null;
 
     return [
         'person_id' => $person_id,
